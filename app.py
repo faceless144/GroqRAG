@@ -22,7 +22,7 @@ def initialize_session_state():
         st.session_state['history'] = []
 
     if 'generated' not in st.session_state:
-        st.session_state['generated'] = ["Hello! Ask me anything about 🤗"]
+        st.session_state['generated'] = ["Hello! Ask me anything about the documents you uploaded"]
 
     if 'past' not in st.session_state:
         st.session_state['past'] = ["Hey! 👋"]
@@ -82,9 +82,9 @@ def main():
     groq_api_key = os.environ['GROQ_API_KEY']
     # Initialize session state
     initialize_session_state()
-    st.set_page_config(page_title="Ask your Document")
+    st.set_page_config(page_title="Query your Document")
     st.header("Ask your Document 💬")
-    st.markdown("a Multi-Documents ChatBot App")
+    st.markdown("Welcome to our App")
     # Initialize Streamlit
     st.sidebar.title("Document Processing")
     uploaded_files = st.sidebar.file_uploader("Upload your file here (.pdf, .docx, or .txt)", type=["pdf", "txt", "docx"], accept_multiple_files=True)
@@ -113,7 +113,7 @@ def main():
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
 
     if uploaded_files:
-        with st.spinner('Analyze Document...'):
+        with st.spinner('Analyzing...'):
             # Create vector store
             vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
 
